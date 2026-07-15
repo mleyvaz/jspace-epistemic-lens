@@ -81,7 +81,8 @@ additions); one position per prompt. See the paper's Limitations section.
 @article{leyva2026verdict,
   title  = {Verdict Collapse and Sustained Indeterminacy: Reading Epistemic
             States of Language Models with the Jacobian Lens},
-  author = {Leyva-V{\'a}zquez, Maikel},
+  author = {Leyva-V{\'a}zquez, Maikel and Matheu P{\'e}rez, Alexis and
+            Smarandache, Florentin},
   year   = {2026},
   note   = {Preprint},
   url    = {https://github.com/mleyvaz/jspace-epistemic-lens}
