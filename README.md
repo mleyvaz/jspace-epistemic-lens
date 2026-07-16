@@ -1,8 +1,15 @@
 # jspace-epistemic-lens
 
-Code, stimuli, and data for **"Verdict Collapse and Sustained Indeterminacy:
-Reading Epistemic States of Language Models with the Jacobian Lens"**
-(preprint, 2026).
+Code, stimuli, and data for **"Internal Verdicts Track Evidence: A
+Template-Controlled Neutrosophic Reading of Epistemic States in Large Language
+Models via the Jacobian Lens"** (v0.3, 2026).
+
+> **v0.3 correction notice.** An earlier draft (v0.2) reported three headline
+> findings — "verdict collapse", "sustained indeterminacy", and a raw
+> refutation-mass surge. A second, template-controlled battery showed all
+> three, as initially stated, were largely artifacts of prompt grammar. The
+> current findings below are the ones that survive those controls. Both
+> batteries and every analysis script are in this repository.
 
 We project readouts of Anthropic's [Jacobian lens](https://transformer-circuits.pub/2026/workspace/index.html)
 ([code](https://github.com/anthropics/jacobian-lens)) onto small lexicons of
@@ -11,23 +18,29 @@ factual controls, and track the resulting epistemic triplet across layers.
 
 ![Figure 1](figures/fig1_logmass.png)
 
-## Findings (Qwen3.5-4B, official pre-fitted lens, n=20 per condition)
+## Findings (Qwen3.5-4B, official pre-fitted lens, two batteries, n=20 per condition)
 
-- **Verdict collapse.** Under conflicting evidence, refutation mass surges
-  3.3–4.7 orders of magnitude above control at layers 22–26 (Cohen's *d* =
-  1.5–3.3, all *p* < 1e-4), then falls by a median of **2.4 orders of
-  magnitude** before the output layer (19/20 items; Wilcoxon *p* = 9.5e-7).
-  The output emits hedged modality instead. The verdict is suppressed, not
-  erased: residual refutation mass at the last layer still sits ~2.4 orders
-  above control.
-- **Sustained indeterminacy.** Under first-person false beliefs (KaBLE-style),
-  hedging mass dominates refutation in **20/20 items** (mean gap 3.1 orders)
-  and persists undiminished to the output. No suppressed verdict — the
-  intermediate layers never commit.
-- **Paraconsistent coexistence.** In 50–80% of conflict items, support and
-  refutation masses are *simultaneously* elevated >2 SD above control at the
-  same layer and position — a state with no classical description, summarized
-  by the hyper-truth index H = max(0, T+I+F−1).
+![Figure: verdict balance](figures/fig3_balance.png)
+
+- **The neutrosophic verdict balance B = log10(F) − log10(T) tracks evidence
+  polarity under identical templates.** Conflicting evidence drives B to
+  +1.4–1.7 (refutation dominates); agreeing evidence drives it to ≈ −1.6
+  (support dominates). Separation ≈ 3 orders of magnitude, Cohen's *d* =
+  2.3–2.5, *p* < 1e-6 in 9/9 clean layers; the per-item sign classifies the
+  condition correctly in 18/20 and 17/20 items.
+- **Residual discrimination of user-belief falsity.** False first-person
+  beliefs shift B toward refutation relative to true beliefs at every layer
+  (Δ = +0.6–1.0 orders, *p* < 2e-4) — the model discriminates belief falsity
+  internally, via verdict polarity rather than hedging.
+- **Template effects dominate raw lexicon masses (methodological warning).**
+  The "claim that X is" frame alone lifts refutation mass 2.4–3.5 orders above
+  factual controls; "the answer to whether X is" elicits hedging regardless of
+  belief truth; and 17/20 generated continuations verbalize the "suppressed"
+  verdict. Lens-based lexicon audits without matched templates will
+  reproduce these artifacts.
+- **Internal–output consistency at 4B.** The model over-weights the
+  last-mentioned source, leans internally toward that verdict, and says so —
+  no evidence of hidden verdicts at this scale.
 
 ## Repository layout
 
@@ -79,8 +92,9 @@ additions); one position per prompt. See the paper's Limitations section.
 
 ```bibtex
 @article{leyva2026verdict,
-  title  = {Verdict Collapse and Sustained Indeterminacy: Reading Epistemic
-            States of Language Models with the Jacobian Lens},
+  title  = {Internal Verdicts Track Evidence: A Template-Controlled
+            Neutrosophic Reading of Epistemic States in Large Language
+            Models via the Jacobian Lens},
   author = {Leyva-V{\'a}zquez, Maikel and Matheu P{\'e}rez, Alexis and
             Smarandache, Florentin},
   year   = {2026},
